@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  nginx:
+    build:
+      context: services/nginx
+      dockerfile: Dockerfile
+    container_name: vue-dashboard-nginx
+    restart: always
+    volumes:
+      - ./:/var/www
+      - ./services/nginx/logs:/var/log/nginx
+    ports:
+      - 7001:80
+    networks:
+      - network
+
+  client:
+    build:
+      context: services/client
+      dockerfile: Dockerfile
+    container_name: vue-dashboard-client
+    restart: always
+    volumes:
+      - ./client:/var/www/client
+      - /var/www/client/node_modules
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
