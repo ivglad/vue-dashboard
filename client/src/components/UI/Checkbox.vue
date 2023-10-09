@@ -19,12 +19,9 @@ const emit = defineEmits(["update:checked"]);
 
 const check = () => {
   emit("update:checked", props.checked ? false : true);
-  // console.log("update:checked", props.checked ? false : true);
-  // cardsStore.setDraggableMode(props.checked ? false : true);
 };
 
 const checkboxClasses = computed(() => {
-  // console.log("checkboxClasses", props.checked);
   return {
     "checkbox-content-active": props.checked,
   };

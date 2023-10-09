@@ -13,9 +13,13 @@ export const useCardsStore = defineStore("cards", () => {
   };
 
   const cards = ref([]);
-  const draggableModeOn = ref(true);
+  const draggableModeOn = ref();
   cards.value = getFromLocalStorage("cards");
   draggableModeOn.value = getFromLocalStorage("draggableModeOn");
+  
+  if (!draggableModeOn.value) {
+    draggableModeOn.value = true;
+  }
 
   if (!cards.value) {
     cards.value = [
@@ -26,7 +30,7 @@ export const useCardsStore = defineStore("cards", () => {
           "Один из крупнейших городов США, известный своими небоскребами, такими как Эмпайр-стейт-билдинг, Таймс-сквер и Статуя Свободы.",
       },
       {
-        id: Date.now() + 1000,
+        id: Date.now() + 1,
         title: "Токио",
         description:
           "Столица Японии, современный и динамичный город, известный своими небоскребами, ночными огнями и технологическими достижениями.",
@@ -55,19 +59,15 @@ export const useCardsStore = defineStore("cards", () => {
     cards.value.splice(cardIndex, 1);
   };
 
-  const setDraggableMode = (value) => {
-    draggableModeOn.value = value;
-  };
-
   watch([cards, draggableModeOn], saveToLocalStorage, { deep: true });
 
   return {
     cards,
+    draggableModeOn,
     getFromLocalStorage,
     saveToLocalStorage,
     add,
     remove,
-    setDraggableMode,
   };
 });
 

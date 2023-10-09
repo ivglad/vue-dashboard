@@ -34,6 +34,7 @@ body
     height: 100%
     padding: 0 $m-offset $m-offset $m-offset
     overflow-x: hidden
+    z-index: 1
 
     header
       display: flex

@@ -39,15 +39,24 @@ const disableOnCardInfo = (e) => {
 
 const showCardInfo = ref(false);
 
+const cardIsActive = ref(false);
+
 const classes = computed(() => {
   return {
     "card-info": showCardInfo.value,
+    "card-active": cardIsActive.value,
   };
 });
 </script>
 
 <template>
-  <div class="card-component" :class="classes" @dragstart="disableOnCardInfo($event)">
+  <div
+    class="card-component"
+    :class="classes"
+    @dragstart="disableOnCardInfo($event)"
+    @mousedown="cardIsActive = true"
+    @mouseenter="cardIsActive = false"
+  >
     <div
       class="card-title"
       @mouseenter="showOptions = true"
@@ -92,6 +101,8 @@ const classes = computed(() => {
   border: 1px solid $e-base !important
   user-select: auto
   z-index: 2
+.card-active
+  border: 1px solid $e-base !important
 .card-component
   @include transition-leave
   display: flex
